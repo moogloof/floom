@@ -53,11 +53,15 @@ if __name__ == "__main__":
 
 				# Verify connect packet
 				sock.sendto(b"\x00", addr)
+
+				print("User {}:{} joined on {}".format(addr[0], addr[1], channel_id))
 			elif pack[0] == 1:
 				# Leave channel
 				try:
 					channels[connections[addr]].remove(addr)
 					del connections[addr]
+
+					print("User {}:{} left.".format(addr[0], addr[1]))
 				except ValueError:
 					print("Invalid leave request from {}:{}".format(addr[0], addr[1]))
 			elif pack[0] == 2:

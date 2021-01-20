@@ -42,20 +42,27 @@ mic_thread.start()
 try:
 	# Connect to server
 	sock.sendto(b"\x00\x69", (SERVER_IP, SERVER_PORT))
-	sock.recvfrom(1024)
+	r, _ = sock.recvfrom(1024)
 
-	# Output data received from server
-	while True:
-		d, addr = sock.recvfrom(CHUNK)
-		ostream.write(d)
+	if r == b"\x00":
+		print("Successfully connected to server.")
+
+		# Output data received from server
+		while True:
+			d, addr = sock.recvfrom(CHUNK)
+			ostream.write(d)
+	else:
+		print("Could not connect to server.")
 except KeyboardInterrupt:
 	pass
 
 
 # Leave from server
+print("Disconnecting from channel...")
 sock.sendto(b"\x01", (SERVER_IP, SERVER_PORT))
 
 # Close streams
+print("Terminating streams...")
 istream.stop_stream()
 ostream.stop_stream()
 istream.close()
@@ -63,5 +70,6 @@ ostream.close()
 audio.terminate()
 
 # Close socket
+print("Quitting client...")
 sock.close()
 
