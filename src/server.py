@@ -39,7 +39,7 @@ if __name__ == "__main__":
 			if pack[0] == 0:
 				# Connect to channel
 				# Channel id
-				channel_id = pack[1:].decode()
+				channel_id = pack[1:]
 
 				if channel_id in channels.keys():
 					# Connect to existing channel
@@ -64,8 +64,10 @@ if __name__ == "__main__":
 				# Update video frame
 				# Send to channel
 				send_channel(channels, connections[addr], sock, pack[1:])
-	except:
+	except KeyboardInterrupt:
 		pass
+
+	print("Shutting down...")
 
 	# Close socket
 	sock.close()
