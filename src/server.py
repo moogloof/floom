@@ -1,10 +1,17 @@
 # Library imports
 import socket
+import sys
 
 
 # Server details
 SERVER_IP = socket.gethostbyname(socket.gethostname())
 SERVER_PORT = 5999
+
+if len(sys.argv) == 3:
+	SERVER_IP = sys.argv[1]
+	SERVER_PORT = int(sys.argv[2])
+else:
+	print("Using default server address")
 
 # Send data to channel
 def send_channel(ch, uid, sock, b):
