@@ -19,14 +19,14 @@ python src/client.py <IP> <PORT> <CHANNEL_ID>
 #### Join Packet
 | Type | Name | Value |
 | - | - | - |
-| bit | Packet ID | 0x00 |
+| byte | Packet ID | 0x00 |
 | str | Channel ID | A channel ID string of any length. |
 #### Leave Packet
 | Type | Name | Value |
 | - | - | - |
-| bit | Packet ID | 0x01 |
+| byte | Packet ID | 0x01 |
 #### Audio Input Packet
 | Type | Name | Value |
 | - | - | - |
-| bit | Packet ID | 0x02 |
+| byte | Packet ID | 0x02 |
 | bytes | Audio Chunk | Audio chunk bytes of any length |
