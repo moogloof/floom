@@ -40,7 +40,7 @@ if __name__ == "__main__":
 	try:
 		while True:
 			# Recv packet
-			pack, addr = sock.recvfrom(1024)
+			pack, addr = sock.recvfrom(1025)
 
 			# Handle connection
 			if pack[0] == 0:
