@@ -8,6 +8,7 @@ import threading
 # Socket consts
 SERVER_IP = sys.argv[1]
 SERVER_PORT = int(sys.argv[2])
+CHANNEL_ID = sys.argv[3].encode()
 
 # Audio consts
 CHUNK = 1024
@@ -37,12 +38,14 @@ ostream = audio.open(format=FORMAT, channels=CHANNELS, rate=RATE, output=True, f
 # Mic input thread
 mic_thread = threading.Thread(target=mic_input, args=(sock, istream))
 mic_thread.daemon = True
-mic_thread.start()
 
 try:
-	# Connect to server
-	sock.sendto(b"\x00\x69", (SERVER_IP, SERVER_PORT))
+	# Connect to server and channel
+	sock.sendto(b"\x00" + CHANNEL_ID, (SERVER_IP, SERVER_PORT))
 	r, _ = sock.recvfrom(1024)
+
+	# Start mic daemon
+	mic_thread.start()
 
 	if r == b"\x00":
 		print("Successfully connected to server.")
